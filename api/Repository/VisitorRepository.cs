@@ -20,7 +20,10 @@ namespace api.Repository
 
   public async Task<List<Visitor>> GetAllAsync()
         {
-            return await _context.Visitor.ToListAsync();
+            return await _context.Visitor
+            .Include(v => v.Visits)
+            .ThenInclude(visit => visit.VisitItems)
+            .ToListAsync();
         }
 
         public async Task<Visitor?> GetByIdAsync(int id)

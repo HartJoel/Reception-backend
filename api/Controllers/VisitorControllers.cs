@@ -21,7 +21,11 @@ namespace api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var visitors = await _repo.GetAllAsync();
-            return Ok(visitors);
+
+             var visitorDtos = visitors
+                .Select(v => v.ToVisitorDto());
+
+        return Ok(visitorDtos);
         }
 
         [HttpPost]

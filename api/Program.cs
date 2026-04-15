@@ -12,7 +12,13 @@ builder.Services.AddOpenApi();
 
 
 // Add services
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // This tells the serializer to just ignore the loop 
+        // instead of throwing an exception.
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 builder.Services.AddEndpointsApiExplorer(); // Needed for Swagger
 builder.Services.AddSwaggerGen();           // Enable Swagger generation
 
