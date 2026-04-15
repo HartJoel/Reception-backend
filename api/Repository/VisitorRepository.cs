@@ -18,7 +18,7 @@ namespace api.Repository
             _context = context;
         }
 
-  public async Task<List<Visitor>> GetAllAsync()
+         public async Task<List<Visitor>> GetAllAsync()
         {
             return await _context.Visitor
             .Include(v => v.Visits)
@@ -26,9 +26,12 @@ namespace api.Repository
             .ToListAsync();
         }
 
-        public async Task<Visitor?> GetByIdAsync(int id)
+       public async Task<Visitor?> GetByIdAsync(int id)
         {
-            return await _context.Visitor.FindAsync(id);
+             return await _context.Visitor
+            .Include(v => v.Visits)
+            .ThenInclude(visit => visit.VisitItems)
+            .FirstOrDefaultAsync(v => v.Id == id);
         }
         
 

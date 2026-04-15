@@ -28,6 +28,17 @@ namespace api.Controllers
         return Ok(visitorDtos);
         }
 
+         [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var visitor = await _repo.GetByIdAsync(id);
+            if(visitor == null)
+            {
+                return NotFound();
+            }
+            return Ok(visitor.ToVisitorDto());
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateVisitorDto dto)
         {
