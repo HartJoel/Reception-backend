@@ -46,5 +46,18 @@ namespace api.Controllers
             await _repo.CreateAsync(visitor);
             return Ok(visitor);
         }
+
+          [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var visitor = await _repo.DeleteAsync(id);
+            if(visitor == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
     }
 }
