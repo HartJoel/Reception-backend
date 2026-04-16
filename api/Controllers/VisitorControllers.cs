@@ -28,7 +28,7 @@ namespace api.Controllers
         return Ok(visitorDtos);
         }
 
-         [HttpGet("{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var visitor = await _repo.GetByIdAsync(id);

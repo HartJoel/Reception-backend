@@ -24,6 +24,18 @@ namespace api.Controllers
             return Ok(dto);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var visit = await _repo.GetByIdAsync(id);
+            if(visit == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(visit.ToVisitDto());
+        }
+
         [HttpPost("{VisitorId}")]
         public async Task<IActionResult> Create([FromRoute] int VisitorId, CreateVisitDto dto)
         {
