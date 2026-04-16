@@ -3,6 +3,8 @@ using api.Interfaces;
 using api.Dtos.Visitor;
 using api.Interface;
 using api.Mapper;
+using System.ComponentModel.DataAnnotations;
+using api.Helpers;
 
 namespace api.Controllers
 {
@@ -18,9 +20,9 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery]QueryObject query)
         {
-            var visitors = await _repo.GetAllAsync();
+            var visitors = await _repo.GetAllAsync(query);
 
              var visitorDtos = visitors
                 .Select(v => v.ToVisitorDto());
